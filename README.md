@@ -2,6 +2,7 @@
 
 Wrapper REST API for [Telia Multi SMS](https://www.telia.ee/ari/mobiil/mobiili-lisateenused/multisms) REST API.  
 
+![endpoints](./img/api-endpoints-list.png)
 
 API features:
 - Alertmanager webhook compatible endpoint for SMS sending

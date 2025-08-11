@@ -1,0 +1,65 @@
+{
+	"allAcceptedSuccessfully": true, 
+	"receivedMessagesCount": 4, 
+	"acceptedMessagesCount": 4, 
+	"unacceptableMessagesCount": 0, 
+	"acceptedMessages": [
+		{
+			"to": "37256000001", 
+			"from": "37250000000", 
+			"message": "my test sms1", 
+			"requestReport": true, 
+			"flash": false, 
+			"parts": [
+				{
+					"opMessageUid": "179157865239697655_1", 
+					"messageLength": 12
+				}
+			], 
+			"messageFormat": "GSM7"
+		}, 
+		{
+			"to": "37256000002", 
+			"from": "37250000000", 
+			"message": "my test sms1", 
+			"requestReport": true, 
+			"flash": false, 
+			"parts": [
+				{
+					"opMessageUid": "179157705237582622_1", 
+					"messageLength": 12
+				}
+			], 
+			"messageFormat": "GSM7"
+		}, 
+		{
+			"to": "37256000003", 
+			"from": "37250000000", 
+			"message": "my test sms1", 
+			"requestReport": true, 
+			"flash": false, 
+			"parts": [
+				{
+					"opMessageUid": "179157705237582955_1", 
+					"messageLength": 12
+				}
+			], 
+			"messageFormat": "GSM7"
+		},
+		{
+			"to": "37256000010", 
+			"from": "37250000000", 
+			"message": "my test sms1", 
+			"requestReport": true, 
+			"flash": false, 
+			"parts": [
+				{
+					"opMessageUid": "179157705237582999_1", 
+					"messageLength": 12
+				}
+			], 
+			"messageFormat": "GSM7"
+		}
+	], 
+	"unacceptableMessages": []
+}

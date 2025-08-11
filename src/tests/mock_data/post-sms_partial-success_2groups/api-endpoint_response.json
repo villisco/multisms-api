@@ -1,0 +1,21 @@
+ {
+  "data": {
+    "failures": [
+      {
+        "code": "TELIA_UNACCEPTABLE",
+        "message": "Unknown error",
+        "receiver": "37256000010"
+      }
+    ],
+    "sms_generated_count": 4,
+    "sms_sent_count": 3,
+    "sms_sent_failed_count": 1
+  },
+  "id": "159034a8-4715-4b2c-a923-a79ac123e4d7",
+  "meta": {
+    "code": "PARTIAL_SUCCESS",
+    "details": null,
+    "message": "Some SMS messages may not have been fully processed",
+    "partial_success": true
+  }
+}

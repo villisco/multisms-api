@@ -1,0 +1,6 @@
+{
+  "receiver_groups": [
+    "test_group2"
+  ],
+  "sms_text": "my test sms1"
+}

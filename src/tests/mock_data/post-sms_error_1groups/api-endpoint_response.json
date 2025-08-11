@@ -1,0 +1,14 @@
+{
+  "id": "159034a8-4715-4b2c-a923-a79ac123e4d7",
+  "error": {
+    "code": "TELIA_UNSUCCESSFUL_REQUEST",
+    "details": {
+      "response_status_code": 502,
+      "response_text": {
+        "reason": "Input message count exceeds the limit (600): x"
+      }
+    },
+    "message": "Telia request was unsuccessful. No SMS messages were sent.",
+    "partial_success": false
+  }
+}

@@ -1,0 +1,23 @@
+{
+	"allAcceptedSuccessfully": true, 
+	"receivedMessagesCount": 1, 
+	"acceptedMessagesCount": 1, 
+	"unacceptableMessagesCount": 0, 
+	"acceptedMessages": [
+		{
+			"to": "37256000010", 
+			"from": "37250000000", 
+			"message": "my test sms1", 
+			"requestReport": true, 
+			"flash": false, 
+			"parts": [
+				{
+					"opMessageUid": "179157832617840641_1", 
+					"messageLength": 12
+				}
+			], 
+			"messageFormat": "GSM7"
+		}
+	], 
+	"unacceptableMessages": []
+}

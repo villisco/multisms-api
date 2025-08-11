@@ -1,0 +1,11 @@
+receiver_groups:
+  - name: test_group1
+    description: valid sms senders group
+    receivers:
+      - 37256000001
+      - 37256000002
+      - 37256000003
+  - name: test_group2
+    description: valid sms senders group
+    receivers:
+      - 37256000010

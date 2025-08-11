@@ -1,0 +1,15 @@
+ {
+  "data": {
+    "failures": [],
+    "sms_generated_count": 1,
+    "sms_sent_count": 1,
+    "sms_sent_failed_count": 0
+  },
+  "id": "159034a8-4715-4b2c-a923-a79ac123e4d7",
+  "meta": {
+    "code": "SUCCESS",
+    "details": null,
+    "message": "All SMS messages have been fully processed",
+    "partial_success": false
+  }
+}

@@ -28,10 +28,38 @@ def test_url_param_string_to_list(input_str, expected, app):
 @pytest.mark.parametrize(
     "json_path, expected_result",
     [
-        ('tests/mock_data/post-alertmanager_success_1groups/api-endpoint_request.json', 'severity: critical summary: CPU usage is above 90% '),
+        (
+            'tests/mock_data/alertmanager-alerts/alert1.json', 
+            'severity: critical; summary: Overriding common CPU usage is above 90%; '
+        ),
+        (
+            'tests/mock_data/alertmanager-alerts/alert2.json', 
+            'severity: critical; summary: Description CPU usage is above 90%; '
+        ),
+        (
+            'tests/mock_data/alertmanager-alerts/alert3.json', 
+            'severity: critical; summary: Summary CPU usage is above 90%; '
+        ),
+        (
+            'tests/mock_data/alertmanager-alerts/alert4.json', 
+            'severity: critical; summary: Description CPU usage is above 90%; teenus: my service; '
+        ),
+        (
+            'tests/mock_data/alertmanager-alerts/alert5.json', 
+            'severity: critical; summary: Description CPU usage is above 90%; teenus: my service; '
+        ),
+        (
+            'tests/mock_data/alertmanager-alerts/alert6.json', 
+            'severity: critical; teenus: my service; '
+        ),
     ],
     ids=[
-        "example-alert1",
+        "alert: example alert",
+        "alert: missing labels.summary, fallback on annotations.description",
+        "alert: labels.summary over annotations.description",
+        "alert: labels.teenus and annotations.description",
+        "alert: labels.teenus and annotations.description (reversed labels order)",
+        "alert: no annotations"
     ]
 )
 def test_parse_alertmanager_body_to_smstext(app, load_mock_json, json_path, expected_result):

@@ -19,7 +19,7 @@ class AlertmanagerPayload():
     sms_text = ""
     for key, value in parsed_alert_dict.items():
         if value:
-          sms_text += "%s: %s " % (key, value)
+          sms_text += "%s: %s; " % (key, value)
     
     return sms_text
 
@@ -30,14 +30,19 @@ class AlertmanagerPayload():
     parsed_alert_dict = {}
 
     # fields from alert we want to show in SMS text
-    parsed_alert_dict["teenus"] =  alert.alerts[0].labels.teenus or ""
-    parsed_alert_dict["severity"] =  alert.alerts[0].labels.severity or ""
+    parsed_alert_dict["service"] = alert.alerts[0].labels.service or ""
+    parsed_alert_dict["severity"] = alert.alerts[0].labels.severity or ""
     parsed_alert_dict["summary"] = alert.alerts[0].labels.summary or ""
-    parsed_alert_dict["description"] = alert.alerts[0].annotations.description or ""
+    
+    # fallbacks
+    if not parsed_alert_dict["service"]:
+      parsed_alert_dict["teenus"] = alert.alerts[0].labels.teenus or ""
 
-    # fallback
     if not parsed_alert_dict["summary"]:
       parsed_alert_dict["summary"] = alert.alerts[0].annotations.summary or ""
+    
+    if not parsed_alert_dict["summary"]:
+      parsed_alert_dict["summary"] = alert.alerts[0].annotations.description or ""
 
     sms_text = self._merge_dict_to_string(parsed_alert_dict)
 

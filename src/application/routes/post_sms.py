@@ -29,7 +29,7 @@ tags = Tag(name="SMS")
         },
         security=AuthSecurity.security,
 )
-@limiter.limit("5/minute")
+@limiter.limit("60/minute")
 def post_sms(body: PostBodySms) -> requests.Response:
     app.logger.debug("[sms] Received POST request with post_body: %s" % body)
 

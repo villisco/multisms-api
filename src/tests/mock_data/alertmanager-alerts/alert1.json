@@ -2,7 +2,7 @@
   "alerts": [
     {
       "annotations": {
-        "summary": "CPU usage is above 90%"
+        "summary": "Overriding common CPU usage is above 90%"
       },
       "endsAt": "0001-01-01T00:00:00Z",
       "generatorURL": "https://prometheus/graph?g0.expr=...",
@@ -16,7 +16,7 @@
     }
   ],
   "commonAnnotations": {
-    "summary": "CPU usage is above 90%"
+    "summary": "Common CPU usage is above 90%"
   },
   "commonLabels": {
     "alertname": "HighCPUUsage",

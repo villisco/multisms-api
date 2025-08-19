@@ -15,7 +15,7 @@ class AlertLabel(BaseModel):
     summary: Optional[str] = None
     service: Optional[str] = None
     teenus: Optional[str] = None
-    severity: str
+    severity: Optional[str] = None
 
     # allow other unknown labels
     model_config = ConfigDict(extra='allow')
@@ -30,8 +30,8 @@ class Alert(BaseModel):
 
 class AlertmanagerWebhookPayload(BaseModel):
     alerts: List[Alert]
-    commonAnnotations: AlertAnnotation
-    commonLabels: AlertLabel
+    commonAnnotations: Optional[AlertAnnotation] = None
+    commonLabels: Optional[AlertLabel] = None
     externalURL: HttpUrl
     groupKey: str
     groupLabels: Dict[str, str]

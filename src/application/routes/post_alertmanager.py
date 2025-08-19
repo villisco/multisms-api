@@ -33,7 +33,7 @@ tags = Tag(name="SMS")
         },
         security=AuthSecurity.security,
 )
-@limiter.limit("5/minute")
+@limiter.limit("60/minute")
 def post_alert(query: UrlRequiredParams, body: AlertmanagerWebhookPayload) -> requests.Response:
     app.logger.debug("[sms-alertmanager] Received POST request with post_body: %s" % body)
 

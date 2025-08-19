@@ -1,0 +1,10 @@
+curl -u "username:password" -X 'POST' \
+  'https://multisms.mydomain.com/api/v1/sms' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "receiver_groups": [
+    "myapp_sms_receivers_test"
+  ],
+  "sms_text": "custom alert message here"
+}'

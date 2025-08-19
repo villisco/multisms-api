@@ -1,0 +1,17 @@
+receivers:
+  - name: 'myapp_sms_receivers_live'
+    webhook_configs:
+      - url: 'https://multisms.mydomain.com/api/v1/webhooks/alertmanager?receiver_groups=myapp_users_live,on-call-admin'
+        send_resolved: true          # optional
+        http_config:
+          basic_auth:
+            username: "..."
+            password: "..."
+  - name: 'myapp_sms_receivers_test'
+    webhook_configs:
+      - url: 'https://multisms.mydomain.com/api/v1/webhooks/alertmanager?receiver_groups=myapp_users_test'
+        send_resolved: true          # optional
+        http_config:
+          basic_auth:
+            username: "..."
+            password: "..."  

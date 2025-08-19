@@ -1,0 +1,13 @@
+groups:
+  - name: myapp alerts
+    rules:
+    - alert: myapp is DOWN
+      expr: up{job="myapp"} == 0
+      for: 120s
+      labels:
+        service: myapp                                                           # used in SMS message  
+        severity: critical                                                       # used in SMS message 
+        summary: "{{ $labels.environment}} {{ $labels.instance }} is DOWN :("    # used in SMS message  
+      annotations:
+        description:
+          "{{ $labels.environment}} {{ $labels.instance }} is DOWN :("           # used in SMS message (fallback, if "labels:summary" is not available)

@@ -1,0 +1,1 @@
+service: myapp; severity: critical; summary: live myapp is DOWN :(;

@@ -1,0 +1,14 @@
+routes:
+  - receiver: myapp_sms_receivers_live
+    match:
+      service: myapp
+      environment: live
+      severity: critical
+    continue: true
+    group_interval: 60s
+  - receiver: myapp_sms_receivers_test
+    match:
+      service: myapp
+      environment: test
+    continue: true
+    group_interval: 60s 

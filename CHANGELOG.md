@@ -13,3 +13,4 @@
 
 ## 1.2.0
 - Added `GET /api/v1/groups` endpoint for checking what `receiver_groups` config app uses
+- Fix `k8s/helm-chart` missing `description` field in `receiver_groups` config template

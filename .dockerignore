@@ -1,0 +1,20 @@
+# common junk
+.git
+.gitignore
+**/__pycache__/
+**/*.pyc
+*.log
+
+# local env & caches
+.venv
+.env
+.cache
+dist/
+build/
+
+# tests related
+tests/
+htmlcov/
+.coveragerc
+coverage.xml
+report.xml

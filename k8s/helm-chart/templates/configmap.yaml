@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.appName }}
+  namespace: {{ .Values.kube.namespace }}
+  labels:
+    {{- include "common.labels" . }}
+data:
+  LOG_LEVEL_APP: {{ .Values.configMap.LOG_LEVEL_APP }}
+  LOG_LEVEL_GUNICORN: {{ .Values.configMap.LOG_LEVEL_GUNICORN }}
+  TELIA_URL: {{ .Values.configMap.TELIA_URL }}
+  SMS_SENDER: {{ .Values.configMap.SMS_SENDER | quote }}

@@ -1,0 +1,5 @@
+apiVersion: v2
+name: multisms-api
+description: MultiSMS REST API
+type: application
+version: 1.1.0

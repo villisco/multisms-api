@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  namespace: {{ .Values.kube.namespace }}
+  labels:
+    {{- include "common.labels" . }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  minReadySeconds: {{ .Values.deployment.minReadySeconds }}
+  revisionHistoryLimit: {{ .Values.deployment.revisionHistoryLimit }}
+  progressDeadlineSeconds: {{ .Values.deployment.progressDeadlineSeconds }}
+  strategy:
+    rollingUpdate:
+      maxSurge: {{ .Values.rollingUpdate.maxSurge }}
+      maxUnavailable: {{ .Values.rollingUpdate.maxUnavailable }}
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        {{- include "common.labels" . | indent 4 }}
+      annotations:
+        co.elastic.logs/enabled: {{ .Values.elasticLogsEnabled | quote }}
+        co.elastic.logs/json: 'true'
+        #trigger pod reload on secret/configmap change
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha1sum }}
+        checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha1sum }}
+        checksum/configmap-files: {{ include (print $.Template.BasePath "/configmap-files.yaml") . | sha1sum }}
+    spec:
+      terminationGracePeriodSeconds: {{ .Values.deployment.terminationGracePeriodSeconds }}
+      restartPolicy: {{ .Values.deployment.restartPolicy }}
+      automountServiceAccountToken: false
+      affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: {{ .Values.appName }}
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: {{ .Values.appName }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.appName }}
+            - secretRef:
+                name: {{ .Values.appName }}
+          image: {{ .Values.image.url }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          lifecycle:
+            preStop:
+              exec:
+                command: ['sleep', '3']
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          resources:
+            limits:
+              memory: {{ .Values.resources.limits.memory }}
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
+          readinessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 12 # 60sec of unhealthy responses makes it Not Ready
+            timeoutSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 20
+            successThreshold: 1
+            failureThreshold: 60 # Fails 60 times in a row = not alive anymore, not responding for 300sec kills the Pod
+            timeoutSeconds: 5
+            periodSeconds: 5
+          securityContext:
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            runAsUser: 10001
+            runAsGroup: 10001
+          volumeMounts:
+            - name: {{ .Values.appName }}-files
+              mountPath: /app/config
+            - name: tmp-dir
+              mountPath: /tmp
+      volumes:
+        - name: {{ .Values.appName }}-files
+          configMap:
+            name: {{ .Values.appName }}-files
+            defaultMode: 420
+        - name: tmp-dir
+          emptyDir:
+            sizeLimit: 100Mi

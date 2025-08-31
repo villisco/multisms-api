@@ -1,0 +1,33 @@
+# default values for all environments
+appName: multisms-api
+labels:
+  component: backend
+  part_of: monitoring
+  managed_by: argocd
+# disable/enable sending webserver HTTP request logs to elastic
+elasticLogsEnabled: "false"
+deployment:
+  lifecyclePreStopSleepSeconds: '10'
+  minReadySeconds: 10
+  progressDeadlineSeconds: 15
+  restartPolicy: Always
+  revisionHistoryLimit: 3
+  terminationGracePeriodSeconds: 10
+image:
+  pullPolicy: IfNotPresent
+resources:
+  limits:
+    memory: 128Mi
+  requests:
+    cpu: 15m
+    memory: 128Mi
+rollingUpdate:
+  maxSurge: 1
+  maxUnavailable: 1
+kube:
+  namespace: monitoring
+configMap:
+  TELIA_URL: https://multisms.telia.ee
+  SMS_SENDER: 'YOUR_SMS_SENDER_NUMBER_HERE'
+  LOG_LEVEL_APP: INFO
+  LOG_LEVEL_GUNICORN: INFO

@@ -1,6 +1,8 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, RootModel, Field
 from typing import Optional, List, Dict, Any
 from uuid import UUID
+
+from application.schemas.config.sms_receivers_yaml import SMSReceiversConfig
 
 class MetaInfo(BaseModel):
     code: str
@@ -27,6 +29,9 @@ class ApiSuccessResponse(BaseModel):
     id: UUID
     meta: MetaInfo
     data: DataPayload
+
+class ApiConfigResponse(RootModel[SMSReceiversConfig]):
+    pass
 
 class HealthResponse(BaseModel):
     status: str = Field("up", description="Application healthy")

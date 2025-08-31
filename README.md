@@ -104,26 +104,23 @@ $ flask run
 $ python -m pytest -v --cache-clear
 
 ========= test session starts =========
-collected 18 items
+collected 60 items
 
+tests/functional/test_get_groups.py::test_get_groups PASSED
 tests/functional/test_get_health.py::test_get_health PASSED
-tests/unit/app/test_config.py::test_config_loaded PASSED
-tests/unit/app/test_factory.py::test_app_created_with_test_config PASSED
-tests/unit/app/test_log_filters.py::test_filter_remove_date_from_werkzeug_logs PASSED
-tests/unit/app/test_log_filters.py::test_filter_exclude_head_logs_filtered PASSED
-tests/unit/app/test_log_filters.py::test_filter_exclude_head_logs_allows_other_requests PASSED
-tests/unit/telia_validations/test_receivers.py::test_validate_no_receivers_provided_not_empty PASSED
-tests/unit/telia_validations/test_receivers.py::test_validate_no_receivers_provided_empty PASSED
-tests/unit/telia_validations/test_receivers.py::test_validate_max_receivers_not_reached PASSED
-tests/unit/telia_validations/test_receivers.py::test_validate_max_receivers_limit_reached PASSED
-tests/unit/telia_validations/test_receivers.py::test_validate_receiver_whitelisted PASSED
-tests/unit/telia_validations/test_receivers.py::test_validate_receiver_not_whitelisted PASSED
-tests/unit/telia_validations/test_sms.py::test_validate_is_sms_messages_list_not_empty PASSED
-tests/unit/telia_validations/test_sms.py::test_validate_is_sms_messages_list_empty PASSED
-tests/unit/telia_validations/test_sms.py::test_validate_sms_text_has_content PASSED
-tests/unit/telia_validations/test_sms.py::test_validate_sms_text_no_content PASSED 
+tests/functional/test_post_sms.py::test_post_sms[success_request_1groups] PASSED
+tests/functional/test_post_sms.py::test_post_sms[success_request_2groups] PASSED
+tests/functional/test_post_sms.py::test_post_sms[partial-success_request_2groups] PASSED
+tests/functional/test_post_sms.py::test_post_sms[error_request_1groups] PASSED
+tests/functional/test_post_sms_alertmanager.py::test_post_sms[success_request_1groups] PASSED
+tests/functional/test_post_sms_alertmanager.py::test_post_sms[success_request_2groups] PASSED
+tests/integration/test_alertmanager_url_params.py::test_alertmanager_url_params_missing PASSED
+tests/integration/test_alertmanager_url_params.py::test_alertmanager_url_params_unknown PASSED
+tests/integration/test_auth_endpoints.py::test_health_endpoint_no_auth PASSED
+tests/integration/test_auth_endpoints.py::test_sms_endpoint_no_auth PASSED
+...
 
-========= 16 passed in 0.12s ===========
+========= 60 passed in 1.11s ===========
 ```
 > PS. For running only specific tests: `python -m pytest -v --cache-clear -k auth`
 
@@ -132,22 +129,37 @@ tests/unit/telia_validations/test_sms.py::test_validate_sms_text_no_content PASS
 ```
 $ python -m pytest -v --cov --cov-report=term-missing --cov-report=html:htmlcov --cov-report=xml
 
-Name                                        Stmts   Miss  Cover   Missing
--------------------------------------------------------------------------
-app.py                                         27      0   100%
-application/api/get_health.py                  12      0   100%
-application/api/post_sms.py                    18      4    78%   50-60
-application/api/post_sms_alertmanager.py       23      4    83%   61-71
-application/services/telia_rest_api.py         52     32    38%   48-60, 63, 66-82, 85-88, 99-126
-application/services/telia_validations.py      37      0   100%
-config.py                                      28      0   100%
-log_filters.py                                 10      0   100%
--------------------------------------------------------------------------
-TOTAL                                         207     40    81%
+Name                                               Stmts   Miss  Cover   Missing
+--------------------------------------------------------------------------------
+app.py                                                52      0   100%
+application/auth/basic_auth.py                        12      0   100%
+application/core/alert_payload.py                     31      0   100%
+application/core/telia_payload.py                     52      0   100%
+application/routes/get_config.py                      12      0   100%
+application/routes/get_health.py                       8      0   100%
+application/routes/post_alertmanager.py               27      0   100%
+application/routes/post_sms.py                        20      0   100%
+application/schemas/api/api_params.py                  3      0   100%
+application/schemas/api/api_post_body.py              33      0   100%
+application/schemas/api/api_responses.py              29      0   100%
+application/schemas/config/sms_receivers_yaml.py      20      0   100%
+application/schemas/services/telia_payload.py         13      0   100%
+application/schemas/services/telia_responses.py       29      0   100%
+application/services/telia_api.py                     51      0   100%
+application/utils/config_helper.py                     7      0   100%
+application/utils/exceptions.py                       16      0   100%
+application/utils/exceptions_handler.py               23      0   100%
+application/utils/log_filters.py                      10      0   100%
+application/utils/rate_limiter.py                      4      0   100%
+application/utils/util.py                             13      0   100%
+config.py                                             36      0   100%
+--------------------------------------------------------------------------------
+TOTAL                                                501      0   100%
 
 Coverage HTML written to dir htmlcov
+Coverage XML written to file coverage.xml
 ```
-> PS. `Missing: 61-71` means exact line numbers not hit by tests.
+> PS. `Missing: 61-71` for example means exact line numbers not hit by tests.
 
 ## Sonarqube code analysis
 

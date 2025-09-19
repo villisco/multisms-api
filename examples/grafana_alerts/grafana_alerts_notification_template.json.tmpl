@@ -1,0 +1,8 @@
+{{ define "sms_template" }}
+{
+  "receiver_groups": [
+    "myapp_users_live"
+  ],
+  "sms_text": "[{{ .Status | toUpper }}] Alerts: {{ len .Alerts.Firing }} firing{{ if .Alerts.Resolved }}, {{ len .Alerts.Resolved }} resolved{{ end }}\n\n{{ range .Alerts }}{{ if eq .Status "firing" }}🔥 [{{ .Status | toUpper }}]{{ else if eq .Status "resolved" }}✅ [{{ .Status | toUpper }}]{{ end }}: {{ .Annotations.summary }}\n\n{{ end }}"
+}
+{{ end }}

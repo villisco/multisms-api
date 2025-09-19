@@ -44,8 +44,8 @@ class TeliaPayload():
     for group_name in sms_groups:
       group = self._get_config_group(group_name)
       for receiver in group.receivers:
-        if receiver not in sms_receivers:
-          sms_receivers.append(receiver)
+        if receiver.number not in sms_receivers:
+          sms_receivers.append(receiver.number)
 
     app.logger.info("[_merge_sms_receivers] Total SMS receivers: %i" % len(sms_receivers))
     return sms_receivers

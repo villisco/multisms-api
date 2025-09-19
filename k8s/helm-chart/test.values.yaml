@@ -5,24 +5,30 @@ configMap:
 deployment:
   replicas: 2
 image:
-  url: ARTIFACTORY_URL/monitoring/multisms-api/release/1.1.0@sha256:5b934f76b7face20305d02a3029e37d940b3319b059ae466ac30b5828df673e8
+  url: ARTIFACTORY_URL/monitoring/multisms-api/release/2.0.0@sha256:43b6ff658d91a9e3508cb8980d3b6860b22098f7db38cc96eafab28eea996964
 receiver_groups:
-# source: "examples/receiver_groups.yaml"
-- name: on-call-admin
-  description: 24/7 On-Call admin
-  receivers:
-  - '37255000011' # Admin (rotating number)
-- name: myapp_users_live
-  description: LIVE myapp alert receivers
-  receivers:
-  - '37258000001' # User1
-  - '37256000005' # User2 
-- name: myapp_users_test
-  description: TEST myapp alert receivers
-  receivers:
-  - '37258000001' # User1
-  - '37256000005' # User2 
-  - '37258000003' # User3
+  # source: "examples/receiver_groups.yaml"
+  - name: on-call-admin
+    description: 24/7 On-Call admin
+    receivers:
+      - number: '37255000011'
+        name: 'Admin (rotating number)'
+  - name: myapp_users_live
+    description: LIVE myapp alert receivers
+    receivers:
+      - number: '37258000001'
+        name: 'User1'
+      - number: '37256000005'
+        name: 'User2'
+  - name: myapp_users_test
+    description: TEST myapp alert receivers
+    receivers:
+      - number: '37258000001'
+        name: 'User1'
+      - number: '37256000005'
+        name: 'User2'
+      - number: '37258000003'
+        name: 'User3'
 secret:
   API_BASIC_AUTH_PW: <path:1001#Password | base64encode>
   API_BASIC_AUTH_USER: <path:1001#Username | base64encode>

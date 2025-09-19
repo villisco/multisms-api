@@ -14,3 +14,24 @@
 ## 1.2.0
 - Added `GET /api/v1/groups` endpoint for checking what `receiver_groups` config app uses
 - Fix `k8s/helm-chart` missing `description` field in `receiver_groups` config template
+
+## 2.0.0
+- More explicit `receiver_groups` configuration  
+  __now:__
+  ```
+  - name: myapp_users_test
+    description: TEST myapp alert receivers
+    receivers:
+      - number: '37258000001'
+        name: 'User1'
+      - number: '37258000002'
+        name: 'User2'
+  ```
+  before:
+  ```
+  - name: myapp_users_test
+    description: TEST myapp alert receivers
+    receivers:
+      - '37258000001' # User1
+      - '37258000002'
+  ```

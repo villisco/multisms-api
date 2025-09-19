@@ -22,9 +22,9 @@ expected_receiver_group = {
     "name": "test_group1",
     "description": "valid sms senders group",
     "receivers": [
-        37256000001,
-        37256000002,
-        37256000003
+        {'number': '37256000001', 'name': 'User 1'},
+        {'number': '37256000002', 'name': 'User 2'},
+        {'number': '37256000003', 'name': 'User 3'}
     ]
 }
 
@@ -44,16 +44,10 @@ def test_receivers_config_loaded(app):
 
     groups = app.config.get("receiver_groups")
     group = groups[0]
+
     assert group.name == expected_receiver_group["name"]
     assert group.description == expected_receiver_group["description"]
-    assert group.receivers == expected_receiver_group["receivers"]
 
-def test_receivers_config_loaded(app):
-    assert "receiver_groups" in app.config
-    assert isinstance(app.config.get("receiver_groups"), list)
-
-    groups = app.config.get("receiver_groups")
-    group = groups[0]
-    assert group.name == expected_receiver_group["name"]
-    assert group.description == expected_receiver_group["description"]
-    assert group.receivers == expected_receiver_group["receivers"]
+    # receivers are Receiver models -> compare as dicts
+    actual_receivers = [r.model_dump() for r in group.receivers]  # Pydantic v2
+    assert actual_receivers == expected_receiver_group["receivers"]

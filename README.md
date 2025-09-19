@@ -78,15 +78,21 @@ receiver_groups:
   - name: test_group1
     description: valid sms senders group
     receivers:
-      - 37256000001
-      - 37256000002
-      - 37256000003
+      - number: '37256000001'
+        name: 'User 1'
+      - number: '37256000002'
+        name: 'User 2'
+      - number: '37256000003'
+        name: 'User 3'
   - name: test_group2
     description: valid sms senders group
     receivers:
-      - 37256000010
-      - 37256000011
-      - 37256000012
+      - number: '37256000010'
+        name: 'User 4'
+      - number: '37256000011'
+        name: 'User 5'
+      - number: '37256000012'
+        name: 'User 6'
 ```
 > PS! All groups use global `SMS_SENDER` number.
 

@@ -7,7 +7,7 @@ bp = APIBlueprint('root_blueprint', __name__)
 tags = Tag(name="Monitoring")
 
 @bp.get(
-    "/", 
+    "/health", 
     summary="Check if application is up", 
     tags=[tags],
     responses={

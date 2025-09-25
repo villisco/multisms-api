@@ -30,7 +30,10 @@ class ApiSuccessResponse(BaseModel):
     meta: MetaInfo
     data: DataPayload
 
-class ApiConfigResponse(RootModel[SMSReceiversConfig]):
+class ApiConfigBaseResponse(RootModel[dict[str, str]]):
+    pass
+    
+class ApiConfigGroupsResponse(RootModel[SMSReceiversConfig]):
     pass
 
 class HealthResponse(BaseModel):

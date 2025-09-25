@@ -1,6 +1,7 @@
 import requests
 from pydantic import BaseModel, ValidationError
 from flask import current_app as app
+
 from application.utils.exceptions import ApiException, ApiError
 from application.schemas.services.telia_responses import TeliaSuccessResponse
 
@@ -23,3 +24,20 @@ def response_to_pydantic_model(response: requests.Response, schema: TeliaSuccess
             status_code=502,
             details={"Response text": response.text[:200]}  # optional
         )
+
+def get_config_base() -> dict[str, str]:
+    base_config = {}
+
+    # selected envvars only
+    base_config['LOG_LEVEL_APP'] = app.config['LOG_LEVEL_APP']
+    base_config['TELIA_URL'] = app.config['TELIA_URL']
+    base_config['SMS_SENDER'] = app.config['SMS_SENDER']
+    base_config['SMS_MAX_RECEIVERS'] = app.config['SMS_MAX_RECEIVERS']
+
+    return base_config
+
+def get_config_groups() -> dict:
+    groups = app.config["receiver_groups"]
+    groups_list = [g.model_dump() for g in groups]
+
+    return {"receiver_groups": groups_list}

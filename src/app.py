@@ -13,6 +13,7 @@ from application.utils.rate_limiter import limiter
 from application.utils.exceptions_handler import register_api_error_handler
 from application.utils.config_helper import load_yaml_config
 
+from application.routes.get_index import bp as index_bp
 from application.routes.get_health import bp as health_bp
 from application.routes.get_config import bp as config_bp
 from application.routes.post_sms import bp as post_sms_bp
@@ -76,7 +77,8 @@ def create_app(config_class = Config):
         app.logger.warning('Application is in TESTING mode!')
 
     # apply blueprints
-    app.register_api(health_bp, url_prefix="/")
+    app.register_api(index_bp, url_prefix="/")
+    app.register_api(health_bp, url_prefix="/api/v1")
     app.register_api(config_bp, url_prefix="/api/v1")
     app.register_api(post_sms_bp, url_prefix="/api/v1")
     app.register_api(post_sms_alertmanager_bp, url_prefix="/api/v1")

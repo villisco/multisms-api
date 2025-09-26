@@ -1,20 +1,13 @@
-from application.utils.util import get_config_base
-
-def test_get_groups(app, client):
-  response = client.get("/api/v1/groups")
-
-  with app.app_context():
-    groups = app.config["receiver_groups"]
-    groups_list = [g.model_dump() for g in groups]
-
-  assert response.status_code == 200
-  assert response.json ["receiver_groups"] == groups_list
+from application.utils.util import loaded_config
 
 def test_get_config(app, client):
   response = client.get("/api/v1/config")
 
   with app.app_context():
-    expected = get_config_base()
+    config = loaded_config()
+    expected_env_vars = config["env_vars"]
+    expected_groups = config["receiver_groups"]
 
   assert response.status_code == 200
-  assert response.get_json() == expected
+  assert response.json ["env_vars"] == expected_env_vars
+  assert response.json ["receiver_groups"] == expected_groups

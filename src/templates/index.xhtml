@@ -9,6 +9,10 @@
   <style type="text/css">
     /* <![CDATA[ */
     body { font-family: system-ui, Arial, sans-serif; margin: 2rem; }
+    .top-actions { margin: 0 0 1rem 0; }
+    .btn { display: inline-block; padding: .5rem .9rem; border: 1px solid #888; border-radius: .4rem; text-decoration: none; font-weight: 600; background: #f7f7f7; }
+    .btn + .btn { margin-left: .75rem; }  /* space between buttons */
+    .btn:focus, .btn:hover { background: #eee; }
     table { border-collapse: collapse; table-layout: fixed; width: 100%; }
     th, td { border: 1px solid #ccc; padding: .5rem; text-align: left; vertical-align: top; word-wrap: break-word; }
     caption { font-weight: bold; text-align: left; margin-bottom: .5rem; }
@@ -17,7 +21,18 @@
   </style>
 </head>
 <body>
+  <p class="top-actions">
+    <a class="btn" href="/openapi/swagger"
+      onclick="window.open(this.href); return false;"
+      rel="noopener noreferrer">Open Swagger</a>
+    <a class="btn" href="https://www.telia.ee/images/documents/juhendid/eng/MultiSMS_manual_eng.pdf"
+      onclick="window.open(this.href); return false;"
+      rel="noopener noreferrer">Telia MultiSMS manual (pdf)</a>
+  </p>
+
   <h1>Current configuration</h1>
+
+  {% set env_vars = config.get('env_vars', {}) %}
 
   <h2>App Configuration</h2>
   <table>
@@ -32,7 +47,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for key, value in config_base.items() %}
+      {% for key, value in env_vars.items() %}
         <tr>
           <td>{{ key }}</td>
           <td>{{ value }}</td>
@@ -41,23 +56,31 @@
     </tbody>
   </table>
 
-  {% set groups = config_groups.get('receiver_groups', []) %}
+  {% set groups = config.get('receiver_groups', []) %}
 
   <h2>Receiver Groups</h2>
   <table>
     <colgroup>
-      <col style="width:30%" />
-      <col style="width:70%" />
+      <col style="width:15%" />
+      <col style="width:25%" />
+      <col style="width:50%" />
     </colgroup>
     <thead>
       <tr>
-        <th>Group</th>
+        <th>Name</th>
+        <th>Description</th>
         <th>Receivers</th>
       </tr>
     </thead>
     <tbody>
+      {% if not groups %}
+        <tr>
+          <td colspan="3"><em>No receiver groups configured</em></td>
+        </tr>
+      {% else %}
       {% for g in groups %}
         <tr>
+          <td>{{ g.name }}</td>
           <td>{{ g.description }}</td>
           <td>
             {% if g.receivers %}
@@ -72,6 +95,7 @@
           </td>
         </tr>
       {% endfor %}
+      {% endif %}
     </tbody>
   </table>
 </body>

@@ -30,11 +30,9 @@ class ApiSuccessResponse(BaseModel):
     meta: MetaInfo
     data: DataPayload
 
-class ApiConfigBaseResponse(RootModel[dict[str, str]]):
-    pass
-    
-class ApiConfigGroupsResponse(RootModel[SMSReceiversConfig]):
-    pass
+class ApiConfigResponse(BaseModel):
+    env_vars: dict[str, str]
+    receiver_groups: SMSReceiversConfig
 
 class HealthResponse(BaseModel):
     status: str = Field("up", description="Application healthy")

@@ -25,7 +25,7 @@ def response_to_pydantic_model(response: requests.Response, schema: TeliaSuccess
             details={"Response text": response.text[:200]}  # optional
         )
 
-def get_config_base() -> dict[str, str]:
+def _get_config_envvars() -> dict[str, str]:
     base_config = {}
 
     # selected envvars only
@@ -36,8 +36,16 @@ def get_config_base() -> dict[str, str]:
 
     return base_config
 
-def get_config_groups() -> dict:
+def _get_config_groups() -> dict:
     groups = app.config["receiver_groups"]
-    groups_list = [g.model_dump() for g in groups]
+    groups = [g.model_dump() for g in groups]
 
-    return {"receiver_groups": groups_list}
+    return groups
+
+def loaded_config() -> dict:
+    config = {}
+    
+    config["env_vars"] = _get_config_envvars()
+    config["receiver_groups"] = _get_config_groups()
+
+    return config

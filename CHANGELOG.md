@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.1.0
+- [ui] swagger button added
+- [ui] `Receiver Groups` table added separate group `Name` & `Description` columns
+- [api] merged `/api/v1/groups` & `/api/v1/config` endpoints into single `/api/v1/config` endpoint
+- [python] upgraded `pytest-cov` from `6.3.0` to `7.0.0`
+
 ## 3.0.0
 - [ui] Application `GET /` now renders "__Current configuration__" view (xhtml template)
 - [api] Moved health endpoint from `/` to `/api/v1/health`

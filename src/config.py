@@ -2,7 +2,7 @@ from os import environ
 from dotenv import load_dotenv
 
 APP_NAME = "multisms-api"
-APP_VERSION = "1.0.0"
+APP_VERSION = "3.1.0"
 
 # load environment variables from ".env" file for local development (if exists)
 load_dotenv()

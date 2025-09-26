@@ -38,7 +38,7 @@ def create_app(config_class = Config):
 
     external_docs = ExternalDocumentation(
         url="https://www.telia.ee/images/documents/juhendid/eng/MultiSMS_manual_eng.pdf",
-        description="Telia MutliSMS service (manual)"
+        description="Telia MultiSMS service (manual)"
     )
 
     app = OpenAPI(
